@@ -1,2 +1,2 @@
 # EQC
-Embedded QML Components base on Qt Quick
+The EQC is an embedded QML components base on Qt Quick
