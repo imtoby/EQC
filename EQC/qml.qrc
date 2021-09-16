@@ -3,5 +3,9 @@
         <file>main.qml</file>
         <file>qmls/commons/EMouseArea.qml</file>
         <file>qmls/components/EClickedCounter.qml</file>
+        <file>qmls/commons/qmldir</file>
+        <file>qmls/commons/EColors.qml</file>
+        <file>qmls/commons/EConstants.qml</file>
+        <file>qmls/commons/ETimer.qml</file>
     </qresource>
 </RCC>

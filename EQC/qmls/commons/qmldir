@@ -1,0 +1,2 @@
+singleton EColors 1.0 EColors.qml
+singleton EConstants 1.0 EConstants.qml
