@@ -22,7 +22,7 @@ EMouseArea {
         }
     }
 
-    Timer {
+    ETimer {
         id: e_trigger_timer
         interval: 800
         objectName: parent.objectName + "e_trigger_timer"

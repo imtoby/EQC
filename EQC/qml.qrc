@@ -7,5 +7,6 @@
         <file>qmls/commons/EColors.qml</file>
         <file>qmls/commons/EConstants.qml</file>
         <file>qmls/commons/ETimer.qml</file>
+        <file>qmls/commons/ELoader.qml</file>
     </qresource>
 </RCC>
