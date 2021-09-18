@@ -8,5 +8,7 @@
         <file>qmls/commons/EConstants.qml</file>
         <file>qmls/commons/ETimer.qml</file>
         <file>qmls/commons/ELoader.qml</file>
+        <file>qmls/commons/EItem.qml</file>
+        <file>qmls/commons/ESwitcher.qml</file>
     </qresource>
 </RCC>
