@@ -12,5 +12,7 @@
         <file>qmls/commons/ESwitcher.qml</file>
         <file>qmls/widgets/ESlidePathLocker.qml</file>
         <file>qmls/commons/EFrame.qml</file>
+        <file>qmls/commons/EBackground.qml</file>
+        <file>qmls/commons/ERectangle.qml</file>
     </qresource>
 </RCC>
