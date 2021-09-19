@@ -10,5 +10,7 @@
         <file>qmls/commons/ELoader.qml</file>
         <file>qmls/commons/EItem.qml</file>
         <file>qmls/commons/ESwitcher.qml</file>
+        <file>qmls/widgets/ESlidePathLocker.qml</file>
+        <file>qmls/commons/EFrame.qml</file>
     </qresource>
 </RCC>
