@@ -15,8 +15,23 @@ EMouseArea {
         anchors.centerIn: parent
         columns: 3
         spacing: 0
+
+        property int currentIndex: -1
+
+        function positionIndex(posX, posY) {
+            if (posX < 50 || posY < 50) {
+                return -1
+            }
+            if (posX < 350 && posY < 350) {
+                const tmpX = parseInt((posX - 51)/100)
+                const tmpY = parseInt((posY - 51)/100)
+                return tmpX + tmpY * 3
+            }
+            return -1
+        }
+
         Repeater {
-            model: 9
+            model: e_slide_path_locker_model
             delegate: e_slide_path_locker_item_component
         }
     }
@@ -58,6 +73,18 @@ EMouseArea {
                         target: e_center
                         opacity: 0.2
                     }
+                }, State {
+                    name: "enter"
+                    PropertyChanges {
+                        target: e_frame
+                        visible: true
+                        opacity: 0.1
+                    }
+                    PropertyChanges {
+                        target: e_center
+                        opacity: 0.2
+                        scale: 2
+                    }
                 }
             ]
         }
@@ -65,5 +92,34 @@ EMouseArea {
 
     ListModel {
         id: e_slide_path_locker_model
+        Component.onCompleted: {
+            for (let i = 0; i < 9; ++i) {
+                append({"selected": false})
+            }
+        }
+    }
+
+    ETimer {
+        id: e_interval_timer
+        interval: 500
+        repeat: true
+        onTriggered: {
+            if (isPressAndHold) {
+                let tmpIndex = e_grid_container.positionIndex(mouseX, mouseY)
+                console.log("ZDS===currentIndex: ", tmpIndex)
+            }
+        }
+    }
+
+    onPressed: {
+        e_interval_timer.restart()
+    }
+
+    onReleased: {
+        e_interval_timer.stop()
+    }
+
+    onCanceled: {
+        e_interval_timer.stop()
     }
 }
