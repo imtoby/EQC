@@ -17,6 +17,7 @@ EMouseArea {
         spacing: 0
 
         property int currentIndex: -1
+        property var selectArray: []
 
         function positionIndex(posX, posY) {
             if (posX < 50 || posY < 50) {
@@ -42,7 +43,7 @@ EMouseArea {
             id: e_slide_path_locker_item
             implicitWidth: 100
             implicitHeight: 100
-            state: "normal"
+            state: currentState
 
             EFrame {
                 id: e_frame
@@ -72,6 +73,7 @@ EMouseArea {
                     PropertyChanges {
                         target: e_center
                         opacity: 0.2
+                        scale: 1
                     }
                 }, State {
                     name: "enter"
@@ -83,7 +85,19 @@ EMouseArea {
                     PropertyChanges {
                         target: e_center
                         opacity: 0.2
-                        scale: 2
+                        scale: 3.6
+                    }
+                }, State {
+                    name: "selected"
+                    PropertyChanges {
+                        target: e_frame
+                        visible: true
+                        opacity: 1
+                    }
+                    PropertyChanges {
+                        target: e_center
+                        opacity: 1
+                        scale: 1
                     }
                 }
             ]
@@ -94,7 +108,7 @@ EMouseArea {
         id: e_slide_path_locker_model
         Component.onCompleted: {
             for (let i = 0; i < 9; ++i) {
-                append({"selected": false})
+                append({"currentState": "normal"})
             }
         }
     }
@@ -103,10 +117,16 @@ EMouseArea {
         id: e_interval_timer
         interval: 500
         repeat: true
+        triggeredOnStart: true
         onTriggered: {
-            if (isPressAndHold) {
-                let tmpIndex = e_grid_container.positionIndex(mouseX, mouseY)
-                console.log("ZDS===currentIndex: ", tmpIndex)
+            const enterIndex = e_grid_container.positionIndex(mouseX, mouseY)
+            if ((-1 !== enterIndex) && (-1 === e_grid_container.selectArray.indexOf(enterIndex))) {
+                console.log("ZDS===currentIndex: ", enterIndex)
+                e_slide_path_locker_model.get(enterIndex).currentState = "enter"
+                e_grid_container.selectArray.push(enterIndex)
+                EDelayCaller.run(200, function (){
+                    e_slide_path_locker_model.get(enterIndex).currentState = "selected"
+                })
             }
         }
     }

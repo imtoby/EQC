@@ -14,5 +14,6 @@
         <file>qmls/commons/EFrame.qml</file>
         <file>qmls/commons/EBackground.qml</file>
         <file>qmls/commons/ERectangle.qml</file>
+        <file>qmls/commons/EDelayCaller.qml</file>
     </qresource>
 </RCC>
