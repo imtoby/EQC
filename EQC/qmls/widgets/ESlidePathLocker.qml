@@ -5,10 +5,30 @@ import "../commons"
 EMouseArea {
     id: e_slide_path_locker
     objectName: "ESlidePathLocker.qml"
-    implicitWidth: 400
-    implicitHeight: 400
+    implicitWidth: lockAreaSize
+    implicitHeight: lockAreaSize
 
+    property int lockAreaSize: 400
+    readonly property int stepValue: parseInt(lockAreaSize / 8)
     property color mainColor: EColors.black
+
+    Canvas {
+        id: e_drawing_line
+        anchors.fill: parent
+        onPaint: {
+            let ctx = getContext("2d")
+
+            ctx.fillStyle = "white"
+            ctx.fillRect(0, 0, e_drawing_line.width, e_drawing_line.height)
+
+            ctx.lineWidth = 1;
+            ctx.strokeStyle = mainColor
+            ctx.beginPath()
+            ctx.moveTo(100, 100)
+            ctx.lineTo(200, 200)
+            ctx.stroke()
+        }
+    }
 
     Grid {
         id: e_grid_container
@@ -20,15 +40,21 @@ EMouseArea {
         property var selectArray: []
 
         function positionIndex(posX, posY) {
-            if (posX < 50 || posY < 50) {
+            if (posX < stepValue || posY < stepValue) {
                 return -1
             }
-            if (posX < 350 && posY < 350) {
-                const tmpX = parseInt((posX - 51)/100)
-                const tmpY = parseInt((posY - 51)/100)
+            if (posX < 7*stepValue && posY < 7*stepValue) {
+                const tmpX = parseInt((posX - stepValue - 1)/(2 * stepValue))
+                const tmpY = parseInt((posY - stepValue - 1)/(2 * stepValue))
                 return tmpX + tmpY * 3
             }
             return -1
+        }
+
+        function indexCenterPosition(index) {
+            const rowIndex = parseInt(index / 3) + 1
+            const columnIndex = index % 3 + 1
+            return Qt.size(columnIndex * 2 * stepValue,  rowIndex * 2 * stepValue)
         }
 
         Repeater {
@@ -41,14 +67,14 @@ EMouseArea {
         id: e_slide_path_locker_item_component
         Item {
             id: e_slide_path_locker_item
-            implicitWidth: 100
-            implicitHeight: 100
+            implicitWidth: stepValue * 2
+            implicitHeight: stepValue * 2
             state: currentState
 
             EFrame {
                 id: e_frame
                 anchors.fill: parent
-                anchors.margins: 20
+                anchors.margins: parseInt(stepValue * 2 / 5)
                 radius: width/2
                 border.width: 2
                 border.color: mainColor
@@ -56,8 +82,8 @@ EMouseArea {
 
             ERectangle {
                 id: e_center
-                implicitWidth: 16
-                implicitHeight: 16
+                implicitWidth: parseInt(stepValue * 1.6 / 5)
+                implicitHeight: parseInt(stepValue * 1.6 / 5)
                 anchors.centerIn: parent
                 radius: width/2
                 color: mainColor
@@ -115,7 +141,7 @@ EMouseArea {
 
     ETimer {
         id: e_interval_timer
-        interval: 500
+        interval: 200
         repeat: true
         triggeredOnStart: true
         onTriggered: {
@@ -127,6 +153,10 @@ EMouseArea {
                 EDelayCaller.run(200, function (){
                     e_slide_path_locker_model.get(enterIndex).currentState = "selected"
                 })
+                if (e_grid_container.currentIndex > -1) {
+                    console.log("ZDS===currentIndex: ", e_grid_container.indexCenterPosition(e_grid_container.currentIndex))
+                }
+                e_grid_container.currentIndex = enterIndex
             }
         }
     }
