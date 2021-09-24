@@ -16,17 +16,25 @@ EMouseArea {
         id: e_drawing_line
         anchors.fill: parent
         onPaint: {
-            let ctx = getContext("2d")
+            if (e_grid_container.selectPoint.length > 0) {
+                let ctx = getContext("2d")
 
-            ctx.fillStyle = "white"
-            ctx.fillRect(0, 0, e_drawing_line.width, e_drawing_line.height)
+                ctx.fillStyle = "transparent"
+                ctx.fillRect(0, 0, e_drawing_line.width, e_drawing_line.height)
 
-            ctx.lineWidth = 1;
-            ctx.strokeStyle = mainColor
-            ctx.beginPath()
-            ctx.moveTo(100, 100)
-            ctx.lineTo(200, 200)
-            ctx.stroke()
+                ctx.lineWidth = 3;
+                ctx.strokeStyle = mainColor
+                ctx.beginPath()
+                const startPoint = e_grid_container.selectPoint[0]
+                ctx.moveTo(startPoint.width, startPoint.height)
+                let nextPoint = null
+                for (let i = 1; i < e_grid_container.selectPoint.length; ++i) {
+                    nextPoint = e_grid_container.selectPoint[i]
+                    ctx.lineTo(nextPoint.width, nextPoint.height)
+                    ctx.moveTo(nextPoint.width, nextPoint.height)
+                }
+                ctx.stroke()
+            }
         }
     }
 
@@ -38,6 +46,7 @@ EMouseArea {
 
         property int currentIndex: -1
         property var selectArray: []
+        property var selectPoint: []
 
         function positionIndex(posX, posY) {
             if (posX < stepValue || posY < stepValue) {
@@ -55,6 +64,11 @@ EMouseArea {
             const rowIndex = parseInt(index / 3) + 1
             const columnIndex = index % 3 + 1
             return Qt.size(columnIndex * 2 * stepValue,  rowIndex * 2 * stepValue)
+        }
+
+        function pushPoint(index) {
+            selectPoint.push(indexCenterPosition(index))
+            e_drawing_line.requestPaint()
         }
 
         Repeater {
@@ -147,15 +161,12 @@ EMouseArea {
         onTriggered: {
             const enterIndex = e_grid_container.positionIndex(mouseX, mouseY)
             if ((-1 !== enterIndex) && (-1 === e_grid_container.selectArray.indexOf(enterIndex))) {
-                console.log("ZDS===currentIndex: ", enterIndex)
                 e_slide_path_locker_model.get(enterIndex).currentState = "enter"
                 e_grid_container.selectArray.push(enterIndex)
                 EDelayCaller.run(200, function (){
                     e_slide_path_locker_model.get(enterIndex).currentState = "selected"
                 })
-                if (e_grid_container.currentIndex > -1) {
-                    console.log("ZDS===currentIndex: ", e_grid_container.indexCenterPosition(e_grid_container.currentIndex))
-                }
+                e_grid_container.pushPoint(enterIndex)
                 e_grid_container.currentIndex = enterIndex
             }
         }
