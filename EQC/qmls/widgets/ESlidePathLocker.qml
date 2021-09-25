@@ -10,6 +10,8 @@ EMouseArea {
 
     property int lockAreaSize: 400
     readonly property int stepValue: parseInt(lockAreaSize / 8)
+    readonly property int cellMargin: parseInt(stepValue * 2 / 5)
+    readonly property int cellSize: (stepValue - cellMargin) * 2
     property color mainColor: EColors.black
 
     Canvas {
@@ -44,31 +46,53 @@ EMouseArea {
         columns: 3
         spacing: 0
 
-        property int currentIndex: -1
         property var selectArray: []
         property var selectPoint: []
 
-        function positionIndex(posX, posY) {
-            if (posX < stepValue || posY < stepValue) {
-                return -1
-            }
-            if (posX < 7*stepValue && posY < 7*stepValue) {
-                const tmpX = parseInt((posX - stepValue - 1)/(2 * stepValue))
-                const tmpY = parseInt((posY - stepValue - 1)/(2 * stepValue))
-                return tmpX + tmpY * 3
+        function checkTimerRunnable() {
+            return selectPoint.length < 9
+        }
+
+        function childIndex(pos) {
+            if ((pos > (stepValue + cellMargin))
+                    && (pos < (stepValue + cellMargin + cellSize))) {
+                return 0
+            } else if ((pos > (stepValue + cellMargin*3 + cellSize*1))
+                       && (pos < (stepValue + cellMargin*3 + cellSize*2))) {
+                return 1
+            } else if ((pos > (stepValue + cellMargin*5 + cellSize*2))
+                       && (pos < (stepValue + cellMargin*5 + cellSize*3))) {
+                return 2
             }
             return -1
+        }
+
+        function positionIndex(posX, posY) {
+            const tmpX = childIndex(posX)
+            const tmpY = childIndex(posY)
+            return (tmpX >= 0 && tmpY >= 0) ? (tmpX + tmpY * 3) : -1
         }
 
         function indexCenterPosition(index) {
             const rowIndex = parseInt(index / 3) + 1
             const columnIndex = index % 3 + 1
-            return Qt.size(columnIndex * 2 * stepValue,  rowIndex * 2 * stepValue)
+            return Qt.size(columnIndex * 2*stepValue, rowIndex * 2*stepValue)
         }
 
         function pushPoint(index) {
             selectPoint.push(indexCenterPosition(index))
             e_drawing_line.requestPaint()
+            if (!checkTimerRunnable) {
+                e_interval_timer.stop()
+            }
+        }
+
+        function selectable(index) {
+            return -1 === selectArray.indexOf(index)
+        }
+
+        function insert(index) {
+            selectArray.push(index)
         }
 
         Repeater {
@@ -151,29 +175,36 @@ EMouseArea {
                 append({"currentState": "normal"})
             }
         }
+
+        function setState(index, state) {
+            get(index).currentState = state
+        }
     }
 
     ETimer {
         id: e_interval_timer
-        interval: 200
+        objectName: "check_enter"
+        interval: 100
         repeat: true
         triggeredOnStart: true
         onTriggered: {
             const enterIndex = e_grid_container.positionIndex(mouseX, mouseY)
-            if ((-1 !== enterIndex) && (-1 === e_grid_container.selectArray.indexOf(enterIndex))) {
-                e_slide_path_locker_model.get(enterIndex).currentState = "enter"
-                e_grid_container.selectArray.push(enterIndex)
-                EDelayCaller.run(200, function (){
-                    e_slide_path_locker_model.get(enterIndex).currentState = "selected"
+            if ((-1 !== enterIndex)
+                    && e_grid_container.selectable(enterIndex)) {
+                e_slide_path_locker_model.setState(enterIndex, "enter")
+                e_grid_container.insert(enterIndex)
+                EDelayCaller.run(200, function () {
+                    e_slide_path_locker_model.setState(enterIndex, "selected")
                 })
                 e_grid_container.pushPoint(enterIndex)
-                e_grid_container.currentIndex = enterIndex
             }
         }
     }
 
     onPressed: {
-        e_interval_timer.restart()
+        if (e_grid_container.checkTimerRunnable()) {
+            e_interval_timer.restart()
+        }
     }
 
     onReleased: {
