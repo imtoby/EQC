@@ -1,7 +1,7 @@
 import QtQuick 2.12
 import QtQuick.Window 2.12
 
-import "./qmls/widgets"
+import "./qmls/pages"
 import "./qmls/commons"
 
 Window {
@@ -10,12 +10,7 @@ Window {
     visible: true
     title: qsTr("EQC")
 
-    ESlidePathLocker {
-        anchors.centerIn: parent
-
-        EFrame {
-            anchors.fill: parent
-            border.color: EColors.gray
-        }
+    EHomePage {
+        anchors.fill: parent
     }
 }

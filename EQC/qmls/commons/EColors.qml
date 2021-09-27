@@ -13,4 +13,13 @@ QtObject {
     readonly property color grayText: "#909199"
     readonly property color grayNormal: "#1A1B1F"
     readonly property color graySwitchOff: "#515259"
+
+    function randomColor() {
+        const letters = '0123456789ABCDEF'
+        let result = '#'
+        for (let i = 0; i < 6; i++) {
+            result += letters[Math.floor(Math.random() * 16)]
+        }
+        return result
+    }
 }

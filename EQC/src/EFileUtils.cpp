@@ -2,6 +2,7 @@
 #include <QFileInfo>
 #include <QDir>
 #include <QFile>
+#include <memory>
 
 EFileUtils::EFileUtils(QObject *parent) : QObject(parent)
 {
