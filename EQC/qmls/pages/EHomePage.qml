@@ -1,23 +1,33 @@
 import QtQuick 2.12
+import QtQuick.Controls 2.12
 
 import "../commons"
 
 Item {
-    ListView {
-        id: e_icons_container
+
+    SwipeView {
+        id: e_home_view
         anchors.fill: parent
-        orientation: ListView.Horizontal
-        snapMode: ListView.SnapOneItem
-        model: 3
+        currentIndex: 1
 
-        delegate: Item {
-            implicitWidth: ListView.view.width
-            implicitHeight: ListView.view.height
-
-            Rectangle { // todo remove this codes
-                anchors.fill: parent
-                color: EColors.randomColor()
-            }
+        Item {
+            id: e_first_page
         }
+        Item {
+            id: e_second_page
+        }
+        Item {
+            id: e_third_page
+        }
+    }
+
+    PageIndicator {
+        id: e_home_indicator
+
+        count: e_home_view.count
+        currentIndex: e_home_view.currentIndex
+
+        anchors.bottom: e_home_view.bottom
+        anchors.horizontalCenter: parent.horizontalCenter
     }
 }
