@@ -13,9 +13,11 @@ Item {
         Item {
             id: e_first_page
         }
+
         Item {
             id: e_second_page
         }
+
         Item {
             id: e_third_page
         }
