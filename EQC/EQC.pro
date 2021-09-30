@@ -8,7 +8,8 @@ CONFIG += c++11
 
 SOURCES += \
         main.cpp \
-        src/EFileUtils.cpp
+        src/EFileUtils.cpp \
+        src/EImageProvider.cpp
 
 RESOURCES += qml.qrc
 
@@ -24,4 +25,5 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
 HEADERS += \
-    src/EFileUtils.h
+    src/EFileUtils.h \
+    src/EImageProvider.h
