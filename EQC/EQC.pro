@@ -26,4 +26,5 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 
 HEADERS += \
     src/EFileUtils.h \
-    src/EImageProvider.h
+    src/EImageProvider.h \
+    src/ESingleton.h
