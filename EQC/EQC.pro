@@ -8,6 +8,7 @@ CONFIG += c++11
 
 SOURCES += \
         main.cpp \
+        src/EAsyncImageProvider.cpp \
         src/EFileUtils.cpp \
         src/EImageProvider.cpp
 
@@ -25,6 +26,7 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
 HEADERS += \
+    src/EAsyncImageProvider.h \
     src/EFileUtils.h \
     src/EImageProvider.h \
     src/ESingleton.h
