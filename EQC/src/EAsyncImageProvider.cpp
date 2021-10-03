@@ -82,6 +82,8 @@ struct EAsyncImageResponsePrivate
 EAsyncImageResponse::EAsyncImageResponse(const QString &id,
                                          const QSize &requestedSize,
                                          QThreadPool *pool)
+    : QQuickImageResponse()
+    , d (new EAsyncImageResponsePrivate)
 {
     auto runnable = new EAsyncImageResponseRunnable(id, requestedSize);
     connect(runnable, &EAsyncImageResponseRunnable::done,

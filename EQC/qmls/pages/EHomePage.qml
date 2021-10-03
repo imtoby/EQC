@@ -16,6 +16,10 @@ Item {
 
         Item {
             id: e_second_page
+            Column {
+                Image { source: "image://async/slow" }
+                Image { source: "image://async/fast" }
+            }
         }
 
         Item {
