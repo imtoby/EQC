@@ -17,5 +17,6 @@
         <file>qmls/commons/EDelayCaller.qml</file>
         <file>qmls/pages/EHomePage.qml</file>
         <file>qmls/commons/EImage.qml</file>
+        <file>qmls/js/utils.js</file>
     </qresource>
 </RCC>
