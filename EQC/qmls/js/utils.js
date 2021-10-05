@@ -184,3 +184,44 @@ String.prototype.isJson = function()
     }
     return true;
 }
+
+/**
+ * Removes n characters from the end of the string
+ *
+ * @method String.chop
+ * @param {Number} n chars
+ * @return {String} A string which remove n chars from the end
+ */
+String.prototype.chop = function(n)
+{
+    if (n >= this.size()) {
+        return ""
+    } else if (n <= 0) {
+        return this
+    }
+    return this.slice(0, -n);
+}
+
+/**
+ * Returns true if the string starts with s; otherwise returns false
+ *
+ * @method String.startsWith
+ * @param {String} prefix
+ * @return {Boolean}
+ */
+String.prototype.startsWith = function(prefix)
+{
+    return this.slice(0, prefix.length) === prefix
+}
+
+/**
+ * Returns true if the string ends with s; otherwise returns false
+ *
+ * @method String.endsWith
+ * @param {String} suffix
+ * @return {Boolean}
+ */
+String.prototype.endsWith = function(suffix)
+{
+    return this.indexOf(suffix, this.length - suffix.length) !== -1;
+}
