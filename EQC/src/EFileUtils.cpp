@@ -4,11 +4,6 @@
 #include <QFile>
 #include <memory>
 
-EFileUtils::EFileUtils(QObject *parent) : QObject(parent)
-{
-
-}
-
 QString EFileUtils::baseName(const QString &filename) const
 {
     if (filename.isEmpty()) {
@@ -146,4 +141,30 @@ void EFileUtils::saveToFile(const QString &filename,
         pFile->write(data);
         pFile->close();
     }
+}
+
+QString EFileUtils::urlToLocalFile(const QString &fileUrl) const
+{
+    if (fileUrl.isEmpty()) {
+        return QStringLiteral("");
+    }
+    if (fileUrl.startsWith(QStringLiteral("qrc:/"))) {
+        return fileUrl.sliced(4);
+    }
+    if (fileUrl.startsWith(QStringLiteral("file:///"))) {
+        return fileUrl.sliced(7);
+    }
+    return fileUrl;
+}
+
+QString EFileUtils::filenameToUrl(const QString &filename) const
+{
+    if (filename.isEmpty()) {
+        return QStringLiteral("");
+    }
+    if (filename.startsWith(QStringLiteral("qrc:/"))) {
+        return QStringLiteral("file://") + filename.sliced(4);
+    }
+    return filename.startsWith(QStringLiteral("file:///"))
+            ? filename : (QStringLiteral("file://") + filename);
 }

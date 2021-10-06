@@ -2,6 +2,7 @@
 /**
  * Returns a number whose value is limited to the given range.
  *
+ * @this {Number}
  * @method Number.prototype.bound
  * @param {Number} min The lower boundary
  * @param {Number} max The upper boundary
@@ -14,6 +15,7 @@ Number.prototype.bound = function(min, max) {
 /**
  * Returns a modulo value which is always positive.
  *
+ * @this {Number}
  * @method Number.prototype.mod
  * @param {Number} n The divisor
  * @return {Number} A modulo value
@@ -25,6 +27,7 @@ Number.prototype.mod = function(n) {
 /**
  * Makes a number string with leading zeros.
  *
+ * @this {String}
  * @method String.prototype.padZero
  * @param {Number} length The length of the output string
  * @return {String} A string with leading zeros
@@ -40,6 +43,7 @@ String.prototype.padZero = function(length){
 /**
  * Makes a number string with leading zeros.
  *
+ * @this {Number}
  * @method Number.prototype.padZero
  * @param {Number} length The length of the output string
  * @return {String} A string with leading zeros
@@ -51,6 +55,7 @@ Number.prototype.padZero = function(length){
 /**
  * Checks whether the string is a number.
  *
+ * @this {String}
  * @method String.prototype.isNumber
  * @param {String} string The string to search for
  * @return {Boolean} True if the string is a number
@@ -116,6 +121,7 @@ Object.defineProperties(Array.prototype, {
 /**
  * Checks whether the string contains a given string.
  *
+ * @this {String}
  * @method String.prototype.contains
  * @param {String} string The string to search for
  * @return {Boolean} True if the string contains a given string
@@ -139,6 +145,7 @@ Math.randomInt = function(max) {
 /**
  * Trim spaces at the beginning and end of string.
  *
+ * @this {String}
  * @method String.prototype.trim
  * @return a {String} no space at the beginning and end
  */
@@ -150,6 +157,7 @@ String.prototype.trim = function()
 /**
  * Trim spaces at the beginning of string.
  *
+ * @this {String}
  * @method String.prototype.beginningTrim
  * @return a {String} no space at the beginning
  */
@@ -161,6 +169,7 @@ String.prototype.beginningTrim = function()
 /**
  * Trim spaces at the end of string.
  *
+ * @this {String}
  * @method String.prototype.endTrim
  * @return a {String} no space at the end
  */
@@ -172,6 +181,7 @@ String.prototype.endTrim = function()
 /**
  * Checks whether the string is a JSON string
  *
+ * @this {String}
  * @method String.prototype.isJson
  * @return {Boolean} True if the string is a JSON
  */
@@ -188,6 +198,7 @@ String.prototype.isJson = function()
 /**
  * Removes n characters from the end of the string
  *
+ * @this {String}
  * @method String.chop
  * @param {Number} n chars
  * @return {String} A string which remove n chars from the end
@@ -195,9 +206,9 @@ String.prototype.isJson = function()
 String.prototype.chop = function(n)
 {
     if (n >= this.size()) {
-        return ""
+        return "";
     } else if (n <= 0) {
-        return this
+        return this;
     }
     return this.slice(0, -n);
 }
@@ -205,18 +216,20 @@ String.prototype.chop = function(n)
 /**
  * Returns true if the string starts with s; otherwise returns false
  *
+ * @this {String}
  * @method String.startsWith
  * @param {String} prefix
  * @return {Boolean}
  */
 String.prototype.startsWith = function(prefix)
 {
-    return this.slice(0, prefix.length) === prefix
+    return this.slice(0, prefix.length) === prefix;
 }
 
 /**
  * Returns true if the string ends with s; otherwise returns false
  *
+ * @this {String}
  * @method String.endsWith
  * @param {String} suffix
  * @return {Boolean}
@@ -224,4 +237,35 @@ String.prototype.startsWith = function(prefix)
 String.prototype.endsWith = function(suffix)
 {
     return this.indexOf(suffix, this.length - suffix.length) !== -1;
+}
+
+/**
+ * The splice() method changes the content of a string by removing a range of
+ * characters and/or adding new characters
+ *
+ * @this {String}
+ * @method String.splice
+ * @param {Number} startIndex, Index at which to start changing the string
+ * @param {Number} deleteCount, An integer indicating the number of old characters to remove
+ * @param {String} addSubStr, The string that is spliced in
+ * @return {String} A new string with the spliced substring
+ */
+String.prototype.splice = function(startIndex, deleteCount, addSubStr)
+{
+    return this.slice(0, startIndex) + addSubStr
+            + this.slice(startIndex + Math.abs(deleteCount));
+}
+
+/**
+ * The replaceAll() method replace all search string in the content with the replace string
+ *
+ * @this {String}
+ * @method String.replaceAll
+ * @param {String} searchString, The string which need replaced
+ * @param {String} replaceString, The string which used to replace searched string
+ * @return {String} A new string with the replace string replace the search string
+ */
+String.prototype.replaceAll = function(searchString, replaceString)
+{
+    return this.replace(new RegExp(searchString, 'g'), replaceString);
 }

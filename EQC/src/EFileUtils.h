@@ -8,8 +8,6 @@ class EFileUtils : public QObject
 {
     Q_OBJECT
 public:
-    explicit EFileUtils(QObject *parent = nullptr);
-
     Q_INVOKABLE QString baseName(const QString &filename) const;
     Q_INVOKABLE bool exists(const QString &filename) const;
     Q_INVOKABLE qint64 fileSize(const QString &filename) const;
@@ -31,6 +29,8 @@ public:
     Q_INVOKABLE void saveToFile(const QString &filename,
                                  const QByteArray &data) const;
 
+    Q_INVOKABLE QString urlToLocalFile(const QString &fileUrl) const;
+    Q_INVOKABLE QString filenameToUrl(const QString &filename) const;
 };
 
 #endif // EFILEUTILS_H_D4517E57_1FD8_44E1_8824_485D60AC6877
