@@ -9,8 +9,7 @@ QString EFileUtils::baseName(const QString &filename) const
     if (filename.isEmpty()) {
         return filename;
     }
-
-    return QFileInfo(filename).baseName();
+    return QFileInfo(urlToLocalFile(filename)).baseName();
 }
 
 bool EFileUtils::exists(const QString &filename) const
@@ -18,8 +17,7 @@ bool EFileUtils::exists(const QString &filename) const
     if (filename.isEmpty()) {
         return false;
     }
-
-    return QFileInfo::exists(filename);
+    return QFileInfo::exists(urlToLocalFile(filename));
 }
 
 qint64 EFileUtils::fileSize(const QString &filename) const
@@ -28,7 +26,7 @@ qint64 EFileUtils::fileSize(const QString &filename) const
         return 0;
     }
 
-    return QFileInfo(filename).size();
+    return QFileInfo(urlToLocalFile(filename)).size();
 }
 
 QString EFileUtils::fileName(const QString &filename) const
@@ -37,7 +35,7 @@ QString EFileUtils::fileName(const QString &filename) const
         return filename;
     }
 
-    return QFileInfo(filename).fileName();
+    return QFileInfo(urlToLocalFile(filename)).fileName();
 }
 
 QString EFileUtils::suffix(const QString &filename) const
@@ -46,7 +44,7 @@ QString EFileUtils::suffix(const QString &filename) const
         return filename;
     }
 
-    return QFileInfo(filename).suffix();
+    return QFileInfo(urlToLocalFile(filename)).suffix();
 }
 
 QString EFileUtils::dirPath(const QString &filename) const
@@ -55,7 +53,7 @@ QString EFileUtils::dirPath(const QString &filename) const
         return filename;
     }
 
-    return QFileInfo(filename).absoluteDir().path();
+    return QFileInfo(urlToLocalFile(filename)).absoluteDir().path();
 }
 
 bool EFileUtils::removeDir(const QString &dirPath) const
@@ -73,7 +71,7 @@ bool EFileUtils::copy(const QString &srcFilename,
     if (srcFilename.isEmpty() || dstFilename.isEmpty()) {
         return false;
     }
-    return QFile(srcFilename).copy(dstFilename);
+    return exists(srcFilename) && QFile(srcFilename).copy(dstFilename);
 }
 
 bool EFileUtils::rename(const QString &srcFilename,
@@ -82,7 +80,7 @@ bool EFileUtils::rename(const QString &srcFilename,
     if (srcFilename.isEmpty() || dstFilename.isEmpty()) {
         return false;
     }
-    return QFile::rename(srcFilename, dstFilename);
+    return exists(srcFilename) && QFile::rename(srcFilename, dstFilename);
 }
 
 QString EFileUtils::removeSuffix(const QString &filename) const
@@ -108,7 +106,7 @@ bool EFileUtils::remove(const QString &filename) const
         return false;
     }
 
-    return QFile::remove(filename);
+    return exists(filename) && QFile::remove(filename);
 }
 
 bool EFileUtils::mkdir(const QString &dirPath) const
