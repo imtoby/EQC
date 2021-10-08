@@ -27,6 +27,7 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 
 HEADERS += \
     src/EAsyncImageProvider.h \
+    src/EFileFormatConstants.h \
     src/EFileUtils.h \
     src/EImageProvider.h \
     src/ESingleton.h
