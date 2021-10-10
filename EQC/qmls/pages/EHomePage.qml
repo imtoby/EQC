@@ -2,6 +2,7 @@ import QtQuick 2.12
 import QtQuick.Controls 2.12
 
 import "../commons"
+import "../../qqr.js-master"
 
 Item {
 
@@ -12,6 +13,13 @@ Item {
 
         Item {
             id: e_first_page
+            QRCode {
+                id: loginQrcodeContainer
+                width: 196
+                height: 196
+                anchors.centerIn: parent
+                value: "https://github.com/M4rtinK/qqr.js"
+            }
         }
 
         Item {

@@ -18,5 +18,8 @@
         <file>qmls/pages/EHomePage.qml</file>
         <file>qmls/commons/EImage.qml</file>
         <file>qmls/js/utils.js</file>
+        <file>qqr.js-master/qmldir</file>
+        <file>qqr.js-master/qqr.js</file>
+        <file>qqr.js-master/QRCode.qml</file>
     </qresource>
 </RCC>
