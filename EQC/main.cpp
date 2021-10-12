@@ -2,6 +2,7 @@
 #include <QQmlApplicationEngine>
 
 #include "src/EAsyncImageProvider.h"
+#include "SingleApplication-master/singleapplication.h"
 
 int main(int argc, char *argv[])
 {
