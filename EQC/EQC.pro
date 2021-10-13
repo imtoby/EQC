@@ -12,7 +12,8 @@ SOURCES += \
         main.cpp \
         src/EAsyncImageProvider.cpp \
         src/EFileUtils.cpp \
-        src/EImageProvider.cpp
+        src/EImageProvider.cpp \
+        src/EStringUtils.cpp
 
 RESOURCES += qml.qrc
 
@@ -32,4 +33,5 @@ HEADERS += \
     src/EFileFormatConstants.h \
     src/EFileUtils.h \
     src/EImageProvider.h \
-    src/ESingleton.h
+    src/ESingleton.h \
+    src/EStringUtils.h
