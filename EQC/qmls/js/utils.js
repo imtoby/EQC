@@ -269,3 +269,18 @@ String.prototype.replaceAll = function(searchString, replaceString)
 {
     return this.replace(new RegExp(searchString, 'g'), replaceString);
 }
+
+/**
+ * The replaceBetween() method replace the string between start and end index use the replacement string
+ *
+ * @this {String}
+ * @method String.replaceBetween
+ * @param {int} start, The replace start index
+ * @param {int} end, The replace end index
+ * @param {String} replacement, The string which used to replace the string between start and end index
+ * @return {String} A new string with the replacement string replace the between string
+ */
+String.prototype.replaceBetween = function(start, end, replacement)
+{
+    return this.substring(0, start) + replacement + this.substring(end);
+}
