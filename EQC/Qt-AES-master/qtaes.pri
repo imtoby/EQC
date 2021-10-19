@@ -5,6 +5,7 @@ HEADERS += \
     $$PWD/aesni/aesni-enc-cbc.h \
     $$PWD/aesni/aesni-enc-ecb.h \
     $$PWD/aesni/aesni-key-exp.h \
+    $$PWD/aesni/test_qaes.h \
     $$PWD/qaesencryption.h
 SOURCES += \
     $$PWD/qaesencryption.cpp
