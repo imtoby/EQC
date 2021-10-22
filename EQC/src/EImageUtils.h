@@ -14,7 +14,8 @@ public:
     explicit EImageUtils(QObject *parent = nullptr);
     ~EImageUtils();
 
-    QImage mergeImage(const QString& imagePath);
+    QImage mergeImages(const QString& imagesDir,
+                       const QStringList& imagesFilters = {"*.png"});
 
 signals:
 
