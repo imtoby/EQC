@@ -14,7 +14,8 @@ public:
     explicit EImageUtils(QObject *parent = nullptr);
     ~EImageUtils();
 
-    QImage mergeImages(const QString& imagesDir,
+    bool mergeImages(const QString& imagesDir,
+                       Qt::Orientation mergeOrientation = Qt::Horizontal,
                        const QStringList& imagesFilters = {"*.png"});
 
 signals:
