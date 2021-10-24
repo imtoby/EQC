@@ -8,6 +8,7 @@
 #include <QSize>
 #include <QImageReader>
 #include <QPainter>
+#include <QImage>
 
 struct EImageUtilsPrivate
 {
@@ -64,7 +65,9 @@ bool EImageUtils::mergeImages(const QString &imagesDir,
             }
 
             for (auto imageSize : imageSizeList) {
-                currentWidth += static_cast<int>((maxHeight * 1.0 / imageSize.height()) * imageSize.width());
+                currentWidth += static_cast<int>(
+                            (maxHeight * 1.0 / imageSize.height())
+                            * imageSize.width());
             }
             currentHeight = maxHeight;
         } else {
@@ -78,12 +81,15 @@ bool EImageUtils::mergeImages(const QString &imagesDir,
             }
 
             for (auto imageSize : imageSizeList) {
-                currentHeight += static_cast<int>((maxWidth * 1.0 / imageSize.width()) * imageSize.height());
+                currentHeight += static_cast<int>(
+                            (maxWidth * 1.0 / imageSize.width())
+                            * imageSize.height());
             }
             currentWidth = maxWidth;
         }
 
-        QImage resultFillImage(currentWidth, currentHeight, QImage::Format_RGB32);
+        QImage resultFillImage(currentWidth, currentHeight,
+                               QImage::Format_RGB32);
         resultFillImage.fill(Qt::white);
 
         QPainter painter;
@@ -109,7 +115,8 @@ bool EImageUtils::mergeImages(const QString &imagesDir,
 
         painter.end();
 
-        QString name = (imagesDir.endsWith("/") ? imagesDir : imagesDir + "/") + "EImageUtils_Merged.png";
+        QString name = (imagesDir.endsWith("/") ? imagesDir : imagesDir + "/")
+                + "EImageUtils_Merged.png";
         return resultFillImage.save(name, "png");
     });
 

@@ -3,7 +3,7 @@
 #define EIMAGEUTILS_H_D4BD9295_BF01_4835_84F7_DAC770A3C6DC
 
 #include <QObject>
-#include <QImage>
+#include "ESingleton.h"
 
 struct EImageUtilsPrivate;
 
@@ -14,14 +14,17 @@ public:
     explicit EImageUtils(QObject *parent = nullptr);
     ~EImageUtils();
 
-    bool mergeImages(const QString& imagesDir,
-                       Qt::Orientation mergeOrientation = Qt::Horizontal,
-                       const QStringList& imagesFilters = {"*.png"});
+    Q_INVOKABLE bool mergeImages(
+            const QString& imagesDir,
+            Qt::Orientation mergeOrientation = Qt::Horizontal,
+            const QStringList& imagesFilters = {"*.png"});
 
 signals:
 
 private:
-    EImageUtilsPrivate *d= nullptr;
+    EImageUtilsPrivate *d = nullptr;
 };
+
+#define EIMAGEUTILS ESingleton<EImageUtils>::instance()
 
 #endif // EIMAGEUTILS_H_D4BD9295_BF01_4835_84F7_DAC770A3C6DC
