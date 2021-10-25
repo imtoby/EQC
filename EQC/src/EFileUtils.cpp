@@ -118,6 +118,14 @@ bool EFileUtils::mkdir(const QString &dirPath) const
     return QDir().mkpath(dirPath);
 }
 
+bool EFileUtils::dirIsEmpty(const QString &dirPath) const
+{
+    if (dirExists(dirPath)) {
+        return QDir(dirPath).entryInfoList(QDir::NoDotAndDotDot|QDir::NoSymLinks).empty();
+    }
+    return true;
+}
+
 void EFileUtils::saveToFile(const QString &filename,
                             const QByteArray &data) const
 {
