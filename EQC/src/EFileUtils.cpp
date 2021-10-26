@@ -126,6 +126,16 @@ bool EFileUtils::dirIsEmpty(const QString &dirPath) const
     return true;
 }
 
+bool EFileUtils::checkDirHasFileBySuffix(const QString &dirPath,
+                                         const QString &suffix) const
+{
+    if (!dirExists(dirPath)) {
+        return !QDir(dirPath).entryInfoList({QString("*.%1").arg(suffix)},
+                                            QDir::NoDotAndDotDot|QDir::NoSymLinks).empty();
+    }
+    return false;
+}
+
 void EFileUtils::saveToFile(const QString &filename,
                             const QByteArray &data) const
 {

@@ -26,6 +26,8 @@ public:
     Q_INVOKABLE bool remove(const QString &filename) const;
     Q_INVOKABLE bool mkdir(const QString &dirPath) const;
     Q_INVOKABLE bool dirIsEmpty(const QString &dirPath) const;
+    Q_INVOKABLE bool checkDirHasFileBySuffix(const QString &dirPath,
+                                             const QString &suffix) const;
 
     Q_INVOKABLE void saveToFile(const QString &filename,
                                  const QByteArray &data) const;
