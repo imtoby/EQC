@@ -3,6 +3,7 @@
 #include <QDir>
 #include <QFile>
 #include <memory>
+#include <QMimeDatabase>
 
 QString EFileUtils::baseName(const QString &filename) const
 {
@@ -168,7 +169,11 @@ QString EFileUtils::urlToLocalFile(const QString &fileUrl) const
         return fileUrl.sliced(4);
     }
     if (fileUrl.startsWith(QStringLiteral("file:///"))) {
-        return fileUrl.sliced(7);
+#ifdef Q_OS_WIN32
+    return fileUrl.sliced(8);
+#elif defined Q_OS_MACOS
+    return fileUrl.sliced(7);
+#endif
     }
     return fileUrl;
 }
@@ -183,4 +188,17 @@ QString EFileUtils::filenameToUrl(const QString &filename) const
     }
     return filename.startsWith(QStringLiteral("file:///"))
             ? filename : (QStringLiteral("file://") + filename);
+}
+
+QString EFileUtils::format(const QString &fileName) const
+{
+    QMimeDatabase MimeDatabase;
+    const QString curFileName = urlToLocalFile(fileName);
+    QString format = MimeDatabase.mimeTypeForFile(
+                curFileName, QMimeDatabase::MatchContent).preferredSuffix();
+    if (format.isEmpty()) {
+        format = MimeDatabase.mimeTypeForFile(
+                    curFileName, QMimeDatabase::MatchExtension).preferredSuffix();
+    }
+    return format;
 }
