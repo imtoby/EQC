@@ -5,6 +5,8 @@
 #include <memory>
 #include <QMimeDatabase>
 
+static QMimeDatabase MimeDatabase;
+
 QString EFileUtils::baseName(const QString &filename) const
 {
     if (filename.isEmpty()) {
@@ -190,10 +192,9 @@ QString EFileUtils::filenameToUrl(const QString &filename) const
             ? filename : (QStringLiteral("file://") + filename);
 }
 
-QString EFileUtils::format(const QString &fileName) const
+QString EFileUtils::format(const QString &filename) const
 {
-    QMimeDatabase MimeDatabase;
-    const QString curFileName = urlToLocalFile(fileName);
+    const QString curFileName = urlToLocalFile(filename);
     QString format = MimeDatabase.mimeTypeForFile(
                 curFileName, QMimeDatabase::MatchContent).preferredSuffix();
     if (format.isEmpty()) {
@@ -201,4 +202,10 @@ QString EFileUtils::format(const QString &fileName) const
                     curFileName, QMimeDatabase::MatchExtension).preferredSuffix();
     }
     return format;
+}
+
+QString EFileUtils::mimeType(const QString &filename) const
+{
+    return MimeDatabase.mimeTypeForFile(urlToLocalFile(filename),
+                                        QMimeDatabase::MatchContent).name();
 }
