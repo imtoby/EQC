@@ -209,3 +209,9 @@ QString EFileUtils::mimeType(const QString &filename) const
     return MimeDatabase.mimeTypeForFile(urlToLocalFile(filename),
                                         QMimeDatabase::MatchContent).name();
 }
+
+QString EFileUtils::suffixOnlyByFileName(const QString &filename) const
+{
+    const QStringList list = filename.split(QStringLiteral("."));
+    return list.isEmpty() ? QStringLiteral("") : list.last();
+}

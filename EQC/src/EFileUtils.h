@@ -37,6 +37,7 @@ public:
 
     Q_INVOKABLE QString format(const QString & filename) const;
     Q_INVOKABLE QString mimeType(const QString & filename) const;
+    Q_INVOKABLE QString suffixOnlyByFileName(const QString & filename) const;
 };
 
 #endif // EFILEUTILS_H_D4517E57_1FD8_44E1_8824_485D60AC6877
