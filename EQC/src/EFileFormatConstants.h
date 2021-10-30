@@ -5,6 +5,8 @@
 #include <QMap>
 #include <QStringList>
 
+namespace EFileFormatConstants {
+
 const QMap<QString, QString> VideoFormatMap = {
     {"3g2", "video/3gpp2"},
     {"3gp", "video/3gpp"},
@@ -287,5 +289,7 @@ const QMap<QString, QString> TextFormatMap = {
 };
 
 const QStringList TextFileFormat = TextFormatMap.keys();
+
+}
 
 #endif // EFILEFORMATCONSTANTS_H_B1B8004C_8DF7_4A98_B8B2_3EEC414F1560

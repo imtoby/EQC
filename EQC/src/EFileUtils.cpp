@@ -7,7 +7,7 @@
 
 static QMimeDatabase MimeDatabase;
 
-QString EFileUtils::baseName(const QString &filename) const
+QString EFileUtils::baseName(const QString &filename)
 {
     if (filename.isEmpty()) {
         return filename;
@@ -15,7 +15,7 @@ QString EFileUtils::baseName(const QString &filename) const
     return QFileInfo(urlToLocalFile(filename)).baseName();
 }
 
-bool EFileUtils::exists(const QString &filename) const
+bool EFileUtils::exists(const QString &filename)
 {
     if (filename.isEmpty()) {
         return false;
@@ -23,16 +23,16 @@ bool EFileUtils::exists(const QString &filename) const
     return QFileInfo::exists(urlToLocalFile(filename));
 }
 
-qint64 EFileUtils::fileSize(const QString &filename) const
+qint64 EFileUtils::fileSize(const QString &filename)
 {
-    if (!this->exists(filename)) {
+    if (!exists(filename)) {
         return 0;
     }
 
     return QFileInfo(urlToLocalFile(filename)).size();
 }
 
-QString EFileUtils::fileName(const QString &filename) const
+QString EFileUtils::fileName(const QString &filename)
 {
     if (filename.isEmpty()) {
         return filename;
@@ -41,7 +41,7 @@ QString EFileUtils::fileName(const QString &filename) const
     return QFileInfo(urlToLocalFile(filename)).fileName();
 }
 
-QString EFileUtils::suffix(const QString &filename) const
+QString EFileUtils::suffix(const QString &filename)
 {
     if (filename.isEmpty()) {
         return filename;
@@ -50,7 +50,7 @@ QString EFileUtils::suffix(const QString &filename) const
     return QFileInfo(urlToLocalFile(filename)).suffix();
 }
 
-QString EFileUtils::dirPath(const QString &filename) const
+QString EFileUtils::dirPath(const QString &filename)
 {
     if (filename.isEmpty()) {
         return filename;
@@ -59,7 +59,7 @@ QString EFileUtils::dirPath(const QString &filename) const
     return QFileInfo(urlToLocalFile(filename)).absoluteDir().path();
 }
 
-bool EFileUtils::removeDir(const QString &dirPath) const
+bool EFileUtils::removeDir(const QString &dirPath)
 {
     if (dirPath.isEmpty()) {
         return false;
@@ -69,7 +69,7 @@ bool EFileUtils::removeDir(const QString &dirPath) const
 }
 
 bool EFileUtils::copy(const QString &srcFilename,
-                          const QString &dstFilename) const
+                          const QString &dstFilename)
 {
     if (srcFilename.isEmpty() || dstFilename.isEmpty()) {
         return false;
@@ -78,7 +78,7 @@ bool EFileUtils::copy(const QString &srcFilename,
 }
 
 bool EFileUtils::rename(const QString &srcFilename,
-                        const QString &dstFilename) const
+                        const QString &dstFilename)
 {
     if (srcFilename.isEmpty() || dstFilename.isEmpty()) {
         return false;
@@ -86,7 +86,7 @@ bool EFileUtils::rename(const QString &srcFilename,
     return exists(srcFilename) && QFile::rename(srcFilename, dstFilename);
 }
 
-QString EFileUtils::removeSuffix(const QString &filename) const
+QString EFileUtils::removeSuffix(const QString &filename)
 {
     if (filename.isEmpty()) {
         return filename;
@@ -94,7 +94,7 @@ QString EFileUtils::removeSuffix(const QString &filename) const
     return QString("%1/%2").arg(dirPath(filename), baseName(filename));
 }
 
-bool EFileUtils::dirExists(const QString &dirPath) const
+bool EFileUtils::dirExists(const QString &dirPath)
 {
     if (dirPath.isEmpty()) {
         return false;
@@ -103,7 +103,7 @@ bool EFileUtils::dirExists(const QString &dirPath) const
     return QDir(dirPath).exists();
 }
 
-bool EFileUtils::remove(const QString &filename) const
+bool EFileUtils::remove(const QString &filename)
 {
     if (filename.isEmpty()) {
         return false;
@@ -112,7 +112,7 @@ bool EFileUtils::remove(const QString &filename) const
     return exists(filename) && QFile::remove(filename);
 }
 
-bool EFileUtils::mkdir(const QString &dirPath) const
+bool EFileUtils::mkdir(const QString &dirPath)
 {
     if (dirPath.isEmpty()) {
         return false;
@@ -121,7 +121,7 @@ bool EFileUtils::mkdir(const QString &dirPath) const
     return QDir().mkpath(dirPath);
 }
 
-bool EFileUtils::dirIsEmpty(const QString &dirPath) const
+bool EFileUtils::dirIsEmpty(const QString &dirPath)
 {
     if (dirExists(dirPath)) {
         return QDir(dirPath).entryInfoList(QDir::NoDotAndDotDot|QDir::NoSymLinks).empty();
@@ -130,7 +130,7 @@ bool EFileUtils::dirIsEmpty(const QString &dirPath) const
 }
 
 bool EFileUtils::checkDirHasFileBySuffix(const QString &dirPath,
-                                         const QString &suffix) const
+                                         const QString &suffix)
 {
     if (!dirExists(dirPath)) {
         return !QDir(dirPath).entryInfoList({QString("*.%1").arg(suffix)},
@@ -140,7 +140,7 @@ bool EFileUtils::checkDirHasFileBySuffix(const QString &dirPath,
 }
 
 void EFileUtils::saveToFile(const QString &filename,
-                            const QByteArray &data) const
+                            const QByteArray &data)
 {
     if (data.isEmpty()) {
         return;
@@ -162,7 +162,7 @@ void EFileUtils::saveToFile(const QString &filename,
     }
 }
 
-QString EFileUtils::urlToLocalFile(const QString &fileUrl) const
+QString EFileUtils::urlToLocalFile(const QString &fileUrl)
 {
     if (fileUrl.isEmpty()) {
         return QStringLiteral("");
@@ -180,7 +180,7 @@ QString EFileUtils::urlToLocalFile(const QString &fileUrl) const
     return fileUrl;
 }
 
-QString EFileUtils::filenameToUrl(const QString &filename) const
+QString EFileUtils::filenameToUrl(const QString &filename)
 {
     if (filename.isEmpty()) {
         return QStringLiteral("");
@@ -192,7 +192,7 @@ QString EFileUtils::filenameToUrl(const QString &filename) const
             ? filename : (QStringLiteral("file://") + filename);
 }
 
-QString EFileUtils::format(const QString &filename) const
+QString EFileUtils::format(const QString &filename)
 {
     const QString curFileName = urlToLocalFile(filename);
     QString format = MimeDatabase.mimeTypeForFile(
@@ -204,13 +204,13 @@ QString EFileUtils::format(const QString &filename) const
     return format;
 }
 
-QString EFileUtils::mimeType(const QString &filename) const
+QString EFileUtils::mimeType(const QString &filename)
 {
     return MimeDatabase.mimeTypeForFile(urlToLocalFile(filename),
                                         QMimeDatabase::MatchContent).name();
 }
 
-QString EFileUtils::suffixOnlyByFileName(const QString &filename) const
+QString EFileUtils::suffixOnlyByFileName(const QString &filename)
 {
     const QStringList list = filename.split(QStringLiteral("."));
     return list.isEmpty() ? QStringLiteral("") : list.last();

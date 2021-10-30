@@ -10,6 +10,9 @@
 #include <QPainter>
 #include <QImage>
 
+#include "EFileUtils.h"
+#include "EFileFormatConstants.h"
+
 struct EImageUtilsPrivate
 {
     std::future<bool> m_fWorkThread;
@@ -121,4 +124,17 @@ bool EImageUtils::mergeImages(const QString &imagesDir,
     });
 
     return false;
+}
+
+QString EImageUtils::imageFileRealSuffix(const QString &filename) const
+{
+    qDebug() << Q_FUNC_INFO << "fileName:" << filename;
+    const QString fileSuffix = EFileUtils::suffixOnlyByFileName(
+                filename).toLower();
+    const QString sMimeType = EFileUtils::mimeType(filename).toLower();
+    qDebug() << Q_FUNC_INFO << "old:" << fileSuffix << sMimeType;
+    const QString fileSuffixNew = EFileFormatConstants::ImageFormatMap.key(
+                sMimeType, fileSuffix);
+    qDebug() << Q_FUNC_INFO << "new:" << fileSuffixNew << sMimeType;
+    return fileSuffixNew.isEmpty() ? fileSuffix : fileSuffixNew;
 }
