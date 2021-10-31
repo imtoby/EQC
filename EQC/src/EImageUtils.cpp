@@ -126,7 +126,7 @@ bool EImageUtils::mergeImages(const QString &imagesDir,
     return false;
 }
 
-QString EImageUtils::imageFileRealSuffix(const QString &filename) const
+QString EImageUtils::imageFileRealSuffix(const QString &filename)
 {
     qDebug() << Q_FUNC_INFO << "fileName:" << filename;
     const QString fileSuffix = EFileUtils::suffixOnlyByFileName(

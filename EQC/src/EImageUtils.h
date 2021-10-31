@@ -19,7 +19,7 @@ public:
             Qt::Orientation mergeOrientation = Qt::Horizontal,
             const QStringList& imagesFilters = {"*.png"});
 
-    Q_INVOKABLE QString imageFileRealSuffix(const QString & filename) const;
+    Q_INVOKABLE static QString imageFileRealSuffix(const QString & filename);
 
 signals:
 

@@ -1,7 +1,9 @@
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
+#include <QDebug>
 
 #include "src/EAsyncImageProvider.h"
+#include "src/EImageUtils.h"
 
 int main(int argc, char *argv[])
 {
@@ -18,6 +20,10 @@ int main(int argc, char *argv[])
         if (!obj && url == objUrl)
             QCoreApplication::exit(-1);
     }, Qt::QueuedConnection);
+
+    qDebug() << "EIMAGEUTILS::imageFileRealSuffix------>"
+             << EImageUtils::imageFileRealSuffix(
+                    "/Users/zhaodongshuang/Desktop/objdump_h.jpg");
 
     engine.addImageProvider("async", new EAsyncImageProvider);
     engine.load(url);
