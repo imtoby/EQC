@@ -20,6 +20,7 @@ public:
             const QStringList& imagesFilters = {"*.png"});
 
     Q_INVOKABLE static QString imageFileRealSuffix(const QString & filename);
+    Q_INVOKABLE static QString imageFileRenameByRealSuffix(const QString & filename);
 
 signals:
 

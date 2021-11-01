@@ -138,3 +138,12 @@ QString EImageUtils::imageFileRealSuffix(const QString &filename)
     qDebug() << Q_FUNC_INFO << "new:" << fileSuffixNew << sMimeType;
     return fileSuffixNew.isEmpty() ? fileSuffix : fileSuffixNew;
 }
+
+QString EImageUtils::imageFileRenameByRealSuffix(const QString &filename)
+{
+    const QString fileSuffix = imageFileRealSuffix(filename);
+    QStringList filelist = filename.split(QStringLiteral("."));
+    filelist.takeLast();
+    filelist.push_back(fileSuffix);
+    return filelist.join(QStringLiteral("."));
+}
