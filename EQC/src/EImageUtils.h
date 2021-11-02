@@ -21,6 +21,7 @@ public:
 
     Q_INVOKABLE static QString imageFileRealSuffix(const QString & filename);
     Q_INVOKABLE static QString imageFileRenameByRealSuffix(const QString & filename);
+    Q_INVOKABLE static bool mimeTypeIsImage(const QString & filename);
 
 signals:
 

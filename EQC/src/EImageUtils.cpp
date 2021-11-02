@@ -147,3 +147,16 @@ QString EImageUtils::imageFileRenameByRealSuffix(const QString &filename)
     filelist.push_back(fileSuffix);
     return filelist.join(QStringLiteral("."));
 }
+
+bool EImageUtils::mimeTypeIsImage(const QString &filename)
+{
+    const QString fileSuffix = EFileUtils::suffixOnlyByFileName(
+                filename).toLower();
+    if (EFileFormatConstants::ImageFormatMap.contains(fileSuffix)) {
+        const QString sMimeType = EFileUtils::mimeType(filename).toLower();
+        qDebug() << Q_FUNC_INFO << fileSuffix << sMimeType;
+        return EFileFormatConstants::ImageFormatMap.value(
+                    fileSuffix).contains(sMimeType);
+    }
+    return false;
+}
