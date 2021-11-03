@@ -13,6 +13,8 @@
 #include "EFileUtils.h"
 #include "EFileFormatConstants.h"
 
+Q_GLOBAL_STATIC(QImageReader, ImageReader)
+
 struct EImageUtilsPrivate
 {
     std::future<bool> m_fWorkThread;
@@ -159,4 +161,12 @@ bool EImageUtils::mimeTypeIsImage(const QString &filename)
                     fileSuffix).contains(sMimeType);
     }
     return false;
+}
+
+QSize EImageUtils::imageSize(const QString &filename)
+{
+    const QString tmpString = EFileUtils::urlToLocalFile(filename);
+    ImageReader->setFormat(EFileUtils::format(tmpString).toLocal8Bit());
+    ImageReader->setFileName(tmpString);
+    return ImageReader->size();
 }
