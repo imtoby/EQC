@@ -25,6 +25,8 @@ public:
 
     Q_INVOKABLE static QSize imageSize(const QString & filename);
 
+    Q_INVOKABLE static bool isSupportImage(const QString & filename);
+
 signals:
 
 private:

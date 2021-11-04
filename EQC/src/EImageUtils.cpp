@@ -170,3 +170,10 @@ QSize EImageUtils::imageSize(const QString &filename)
     ImageReader->setFileName(tmpString);
     return ImageReader->size();
 }
+
+bool EImageUtils::isSupportImage(const QString &filename)
+{
+    const QString fileSuffix
+            = EFileUtils::suffixOnlyByFileName(filename).toLower();
+    return EFileFormatConstants::ImageFileFormat.contains(fileSuffix);
+}
