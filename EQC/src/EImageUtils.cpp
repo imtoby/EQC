@@ -171,9 +171,26 @@ QSize EImageUtils::imageSize(const QString &filename)
     return ImageReader->size();
 }
 
-bool EImageUtils::isSupportImage(const QString &filename)
+bool EImageUtils::isSupportedImage(const QString &filename)
 {
     const QString fileSuffix
             = EFileUtils::suffixOnlyByFileName(filename).toLower();
     return EFileFormatConstants::ImageFileFormat.contains(fileSuffix);
+}
+
+bool EImageUtils::isImageUrl(const QString &url)
+{
+    if (isStartWithHttpsOrHttp(url)) {
+        const QString suffix = EFileUtils::suffixOnlyByFileName(url);
+        if (!suffix.isEmpty()) {
+            return EFileFormatConstants::ImageFileFormat.contains(suffix);
+        }
+    }
+    return false;
+}
+
+bool EImageUtils::isStartWithHttpsOrHttp(const QString &url)
+{
+    return url.startsWith(QStringLiteral("https://"), Qt::CaseInsensitive) ||
+            url.startsWith(QStringLiteral("http://"), Qt::CaseInsensitive);
 }
