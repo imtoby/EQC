@@ -148,6 +148,8 @@ const QMap<QString, QString> ImageFormatMap = {
 
 const QStringList ImageFileFormat = ImageFormatMap.keys();
 
+const QStringList SupportedImageFormat({"*.bmp", "*.gif", "*.jpeg", "*.jpg", "*.png"});
+
 const QMap<QString, QString> WordFormatMap = {
     {"doc", "application/msword,application/zip,text/plain"},
     {"docm", "application/vnd.ms-word.document.macroenabled.12,application/zip,text/plain"},

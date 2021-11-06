@@ -194,3 +194,8 @@ bool EImageUtils::isStartWithHttpsOrHttp(const QString &url)
     return url.startsWith(QStringLiteral("https://"), Qt::CaseInsensitive) ||
             url.startsWith(QStringLiteral("http://"), Qt::CaseInsensitive);
 }
+
+QString EImageUtils::supportedImageFormatJoin(const QString & join)
+{
+    return EFileFormatConstants::SupportedImageFormat.join(join);
+}
