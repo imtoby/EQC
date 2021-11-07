@@ -19,16 +19,19 @@ public:
             Qt::Orientation mergeOrientation = Qt::Horizontal,
             const QStringList& imagesFilters = {"*.png"});
 
-    Q_INVOKABLE static QString imageFileRealSuffix(const QString & filename);
-    Q_INVOKABLE static QString imageFileRenameByRealSuffix(const QString & filename);
-    Q_INVOKABLE static bool mimeTypeIsImage(const QString & filename);
+    Q_INVOKABLE static QString imageFileRealSuffix(const QString& filename);
+    Q_INVOKABLE static QString imageFileRenameByRealSuffix(const QString& filename);
+    Q_INVOKABLE static bool mimeTypeIsImage(const QString& filename);
 
-    Q_INVOKABLE static QSize imageSize(const QString & filename);
+    Q_INVOKABLE static QSize imageSize(const QString& filename);
 
-    Q_INVOKABLE static bool isSupportedImage(const QString & filename);
-    Q_INVOKABLE static bool isImageUrl(const QString & url);
-    Q_INVOKABLE static bool isStartWithHttpsOrHttp(const QString & url);
-    Q_INVOKABLE static QString supportedImageFormatJoin(const QString & join = " ");
+    Q_INVOKABLE static bool isSupportedImage(const QString& filename);
+    Q_INVOKABLE static bool isImageUrl(const QString& url);
+    Q_INVOKABLE static bool isStartWithHttpsOrHttp(const QString& url);
+    Q_INVOKABLE static QString supportedImageFormatJoin(const QString& join = " ");
+
+    Q_INVOKABLE static QByteArray imageToBase64(const QString& filename,
+                                                const QString& format = "jpg");
 
 
 signals:

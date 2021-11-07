@@ -9,6 +9,8 @@
 #include <QImageReader>
 #include <QPainter>
 #include <QImage>
+#include <QBuffer>
+#include <QByteArray>
 
 #include "EFileUtils.h"
 #include "EFileFormatConstants.h"
@@ -195,7 +197,19 @@ bool EImageUtils::isStartWithHttpsOrHttp(const QString &url)
             url.startsWith(QStringLiteral("http://"), Qt::CaseInsensitive);
 }
 
-QString EImageUtils::supportedImageFormatJoin(const QString & join)
+QString EImageUtils::supportedImageFormatJoin(const QString &join)
 {
     return EFileFormatConstants::SupportedImageFormat.join(join);
+}
+
+QByteArray EImageUtils::imageToBase64(const QString &filename,
+                                   const QString &format)
+{
+    QImage image(filename);
+    QByteArray ba;
+    QBuffer buf(&ba);
+    image.save(&buf, format.toStdString().c_str());
+    const QByteArray hexed = ba.toBase64();
+    buf.close();
+    return hexed;
 }
