@@ -33,6 +33,8 @@ public:
     Q_INVOKABLE static QByteArray imageToBase64(const QString& filename,
                                                 const QString& format = "jpg");
 
+    Q_INVOKABLE static const char* defaultSaveImageFormat();
+
 
 signals:
 

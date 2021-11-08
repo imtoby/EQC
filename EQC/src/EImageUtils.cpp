@@ -17,6 +17,8 @@
 
 Q_GLOBAL_STATIC(QImageReader, ImageReader)
 
+static const char* DefaultSaveFormat = "jpg";
+
 struct EImageUtilsPrivate
 {
     std::future<bool> m_fWorkThread;
@@ -212,4 +214,9 @@ QByteArray EImageUtils::imageToBase64(const QString &filename,
     const QByteArray hexed = ba.toBase64();
     buf.close();
     return hexed;
+}
+
+const char *EImageUtils::defaultSaveImageFormat()
+{
+    return DefaultSaveFormat;
 }
