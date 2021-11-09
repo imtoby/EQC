@@ -3,6 +3,8 @@
 #define EIMAGEUTILS_H_D4BD9295_BF01_4835_84F7_DAC770A3C6DC
 
 #include <QObject>
+#include <QImage>
+
 #include "ESingleton.h"
 
 struct EImageUtilsPrivate;
@@ -32,6 +34,7 @@ public:
 
     Q_INVOKABLE static QByteArray imageToBase64(const QString& filename,
                                                 const QString& format = "jpg");
+    Q_INVOKABLE static QImage base64ToImage(const QString& base64);
 
     Q_INVOKABLE static const char* defaultSaveImageFormat();
 

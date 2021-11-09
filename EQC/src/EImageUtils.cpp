@@ -8,7 +8,6 @@
 #include <QSize>
 #include <QImageReader>
 #include <QPainter>
-#include <QImage>
 #include <QBuffer>
 #include <QByteArray>
 
@@ -214,6 +213,15 @@ QByteArray EImageUtils::imageToBase64(const QString &filename,
     const QByteArray hexed = ba.toBase64();
     buf.close();
     return hexed;
+}
+
+QImage EImageUtils::base64ToImage(const QString &base64)
+{
+    QImage image;
+    if (image.loadFromData(QByteArray::fromBase64(base64.toStdString().c_str()))) {
+        return image;
+    }
+    return {};
 }
 
 const char *EImageUtils::defaultSaveImageFormat()
