@@ -12,6 +12,7 @@ include("./Qt-AES-master/qtaes.pri")
 SOURCES += \
         main.cpp \
         src/EAsyncImageProvider.cpp \
+        src/EClipboard.cpp \
         src/EFileUtils.cpp \
         src/EImageProvider.cpp \
         src/EImageUtils.cpp \
@@ -32,6 +33,7 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 
 HEADERS += \
     src/EAsyncImageProvider.h \
+    src/EClipboard.h \
     src/EFileFormatConstants.h \
     src/EFileUtils.h \
     src/EImageProvider.h \
