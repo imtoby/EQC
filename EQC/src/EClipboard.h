@@ -17,6 +17,8 @@ signals:
 
 public slots:
     void setHtml(const QString& html);
+    bool hasHtml() const;
+    QString html() const;
 
 private:
     HClipboardPrivate *d = nullptr;

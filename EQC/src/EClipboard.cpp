@@ -36,3 +36,13 @@ void EClipboard::setHtml(const QString &html)
     mimeData->setHtml(html);
     d->clipboard->setMimeData(mimeData);
 }
+
+bool EClipboard::hasHtml() const
+{
+    return d->clipboard->mimeData()->hasHtml();
+}
+
+QString EClipboard::html() const
+{
+    return d->clipboard->mimeData()->html();
+}
