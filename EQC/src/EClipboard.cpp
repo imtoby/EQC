@@ -46,3 +46,14 @@ QString EClipboard::html() const
 {
     return d->clipboard->mimeData()->html();
 }
+
+void EClipboard::setText(const QString &text)
+{
+    d->clipboard->setText(text);
+    if (d->clipboard->supportsSelection()) {
+        d->clipboard->setText(text, QClipboard::Selection);
+    }
+    if (d->clipboard->supportsFindBuffer()) {
+        d->clipboard->setText(text, QClipboard::FindBuffer);
+    }
+}

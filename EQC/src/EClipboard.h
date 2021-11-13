@@ -20,6 +20,8 @@ public slots:
     bool hasHtml() const;
     QString html() const;
 
+    void setText(const QString& text);
+
 private:
     HClipboardPrivate *d = nullptr;
 };
