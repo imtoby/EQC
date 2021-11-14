@@ -57,3 +57,13 @@ void EClipboard::setText(const QString &text)
         d->clipboard->setText(text, QClipboard::FindBuffer);
     }
 }
+
+bool EClipboard::hasText() const
+{
+    return d->clipboard->mimeData()->hasText();
+}
+
+QString EClipboard::text() const
+{
+    return d->clipboard->text();
+}

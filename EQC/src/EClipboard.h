@@ -21,6 +21,8 @@ public slots:
     QString html() const;
 
     void setText(const QString& text);
+    bool hasText() const;
+    QString text() const;
 
 private:
     HClipboardPrivate *d = nullptr;
