@@ -24,6 +24,8 @@ public slots:
     bool hasText() const;
     QString text() const;
 
+    void setImage(const QImage& image);
+
 private:
     HClipboardPrivate *d = nullptr;
 };

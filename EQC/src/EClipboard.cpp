@@ -67,3 +67,8 @@ QString EClipboard::text() const
 {
     return d->clipboard->text();
 }
+
+void EClipboard::setImage(const QImage &image)
+{
+    d->clipboard->setImage(image);
+}
