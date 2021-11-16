@@ -77,3 +77,8 @@ void EClipboard::setImageFromPath(const QString &imagePath)
 {
     setImage(QImage(imagePath));
 }
+
+bool EClipboard::hasImage() const
+{
+    return d->clipboard->mimeData()->hasImage();
+}
