@@ -25,6 +25,7 @@ public slots:
     QString text() const;
 
     void setImage(const QImage& image);
+    void setImageFromPath(const QString& imagePath);
 
 private:
     HClipboardPrivate *d = nullptr;

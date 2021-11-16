@@ -72,3 +72,8 @@ void EClipboard::setImage(const QImage &image)
 {
     d->clipboard->setImage(image);
 }
+
+void EClipboard::setImageFromPath(const QString &imagePath)
+{
+    setImage(QImage(imagePath));
+}
