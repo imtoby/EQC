@@ -27,6 +27,7 @@ public slots:
     void setImage(const QImage& image);
     void setImageFromPath(const QString& imagePath);
     bool hasImage() const;
+    QImage image() const;
 
 private:
     HClipboardPrivate *d = nullptr;

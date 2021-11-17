@@ -82,3 +82,8 @@ bool EClipboard::hasImage() const
 {
     return d->clipboard->mimeData()->hasImage();
 }
+
+QImage EClipboard::image() const
+{
+    return d->clipboard->image();
+}
