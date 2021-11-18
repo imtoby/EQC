@@ -3,7 +3,7 @@
 #include <QApplication>
 #include <QClipboard>
 #include <QMimeData>
-
+#include <QUrl>
 
 struct HClipboardPrivate
 {
@@ -86,4 +86,15 @@ bool EClipboard::hasImage() const
 QImage EClipboard::image() const
 {
     return d->clipboard->image();
+}
+
+void EClipboard::setFile(const QString &fileName)
+{
+    QMimeData *mimeData = new QMimeData();
+    const QMimeData* oldMimeData = d->clipboard->mimeData();
+    for (const auto& f : oldMimeData->formats()) {
+        mimeData->setData(f, oldMimeData->data(f));
+    }
+    mimeData->setUrls({QUrl::fromLocalFile(fileName)});
+    d->clipboard->setMimeData(mimeData);
 }
