@@ -98,3 +98,11 @@ void EClipboard::setFile(const QString &fileName)
     mimeData->setUrls({QUrl::fromLocalFile(fileName)});
     d->clipboard->setMimeData(mimeData);
 }
+
+void EClipboard::setUrls(const QList<QUrl> &urls)
+{
+    QMimeData *mimeData = new QMimeData();
+    mimeData->setUrls(urls);
+    d->clipboard->setMimeData(mimeData, QClipboard::Clipboard);
+    d->clipboard->setMimeData(mimeData, QClipboard::Selection);
+}

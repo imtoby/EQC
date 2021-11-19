@@ -30,6 +30,7 @@ public slots:
     QImage image() const;
 
     void setFile(const QString& fileName);
+    void setUrls(const QList<QUrl> &urls);
 
 private:
     HClipboardPrivate *d = nullptr;
