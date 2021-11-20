@@ -31,6 +31,7 @@ public slots:
 
     void setFile(const QString& fileName);
     void setUrls(const QList<QUrl> &urls);
+    bool hasUrls() const;
 
 private:
     HClipboardPrivate *d = nullptr;

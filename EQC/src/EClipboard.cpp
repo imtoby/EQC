@@ -106,3 +106,8 @@ void EClipboard::setUrls(const QList<QUrl> &urls)
     d->clipboard->setMimeData(mimeData, QClipboard::Clipboard);
     d->clipboard->setMimeData(mimeData, QClipboard::Selection);
 }
+
+bool EClipboard::hasUrls() const
+{
+    return d->clipboard->mimeData()->hasUrls();
+}
