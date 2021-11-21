@@ -111,3 +111,8 @@ bool EClipboard::hasUrls() const
 {
     return d->clipboard->mimeData()->hasUrls();
 }
+
+QList<QUrl> EClipboard::urls() const
+{
+    return d->clipboard->mimeData()->urls();
+}
