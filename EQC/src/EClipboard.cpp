@@ -5,6 +5,9 @@
 #include <QMimeData>
 #include <QUrl>
 
+#include "EFileUtils.h"
+#include "EImageUtils.h"
+
 struct HClipboardPrivate
 {
     QClipboard *clipboard = nullptr;
@@ -115,4 +118,38 @@ bool EClipboard::hasUrls() const
 QList<QUrl> EClipboard::urls() const
 {
     return d->clipboard->mimeData()->urls();
+}
+
+QString EClipboard::saveClipboardImageToPath(const QString &path)
+{
+    if (hasImage()) {
+        QImage tmpImage;
+        qDebug() << Q_FUNC_INFO << d->clipboard->mimeData()->formats();
+        qDebug() << Q_FUNC_INFO << d->clipboard->mimeData()->urls();
+        if (d->clipboard->mimeData()->formats().contains("text/uri-list")) {
+            auto allUrls = d->clipboard->mimeData()->urls();
+            for (const auto& everyUrl : allUrls) {
+                qDebug() << Q_FUNC_INFO << "everyUrl: " << everyUrl;
+                if (everyUrl.isEmpty()) {
+                    continue;
+                }
+                qDebug() << Q_FUNC_INFO << "clipboard->mimeData()->text(): "
+                         << d->clipboard->mimeData()->text();
+                auto filename = everyUrl.toLocalFile();
+                if (EFileUtils::exists(filename)) {
+                    if (EIMAGEUTILS->mimeTypeIsImage(filename)) {
+                        return filename;
+                    } else if (mimeTypeIsVideo(filename)) { // todo
+                        sendVideo(filename); // todo
+                        return QStringLiteral("");
+                    }
+                }
+            }
+        }
+        tmpImage = image();
+        if (!tmpImage.isNull()) {
+            return saveImageToTempDir(tmpImage); // maybe
+        }
+    }
+    return QStringLiteral("");
 }

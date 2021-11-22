@@ -34,6 +34,8 @@ public slots:
     bool hasUrls() const;
     QList<QUrl> urls() const;
 
+    QString saveClipboardImageToPath(const QString& path);
+
 private:
     HClipboardPrivate *d = nullptr;
 };
