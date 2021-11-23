@@ -36,6 +36,8 @@ namespace EFileUtils
     Q_INVOKABLE QString format(const QString & filename);
     Q_INVOKABLE QString mimeType(const QString & filename);
     Q_INVOKABLE QString suffixOnlyByFileName(const QString & filename);
+
+    Q_INVOKABLE bool mimeTypeIsVideo(const QString & filename);
 };
 
 #endif // EFILEUTILS_H_D4517E57_1FD8_44E1_8824_485D60AC6877

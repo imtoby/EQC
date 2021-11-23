@@ -139,7 +139,7 @@ QString EClipboard::saveClipboardImageToPath(const QString &path)
                 if (EFileUtils::exists(filename)) {
                     if (EIMAGEUTILS->mimeTypeIsImage(filename)) {
                         return filename;
-                    } else if (mimeTypeIsVideo(filename)) { // todo
+                    } else if (EFileUtils::mimeTypeIsVideo(filename)) {
                         sendVideo(filename); // todo
                         return QStringLiteral("");
                     }

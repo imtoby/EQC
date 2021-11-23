@@ -4,6 +4,7 @@
 #include <QFile>
 #include <memory>
 #include <QMimeDatabase>
+#include "EFileFormatConstants.h"
 
 Q_GLOBAL_STATIC(QMimeDatabase, MimeDatabase)
 
@@ -214,4 +215,14 @@ QString EFileUtils::suffixOnlyByFileName(const QString &filename)
 {
     const QStringList list = filename.split(QStringLiteral("."));
     return list.isEmpty() ? QStringLiteral("") : list.last();
+}
+
+bool EFileUtils::mimeTypeIsVideo(const QString &filename)
+{
+    QString fileSuffix = suffixOnlyByFileName(filename).toLower();
+    if (EFileFormatConstants::VideoFormatMap.contains(fileSuffix)) {
+        return EFileFormatConstants::VideoFormatMap.value(
+                    fileSuffix).contains(mimeType(filename).toLower());
+    }
+    return false;
 }
