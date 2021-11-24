@@ -36,8 +36,8 @@ EImageUtils::~EImageUtils()
 }
 
 bool EImageUtils::mergeImages(const QString &imagesDir,
-                                Qt::Orientation mergeOrientation,
-                                const QStringList& imagesFilters)
+                              Qt::Orientation mergeOrientation,
+                              const QStringList& imagesFilters)
 {
     if (d->m_fWorkThread.valid()) {
         while (d->m_fWorkThread.wait_for(std::chrono::milliseconds(0))
@@ -204,7 +204,7 @@ QString EImageUtils::supportedImageFormatJoin(const QString &join)
 }
 
 QByteArray EImageUtils::imageToBase64(const QString &filename,
-                                   const QString &format)
+                                      const QString &format)
 {
     QImage image(filename);
     QByteArray ba;
@@ -227,4 +227,40 @@ QImage EImageUtils::base64ToImage(const QString &base64)
 const char *EImageUtils::defaultSaveImageFormat()
 {
     return DefaultSaveFormat;
+}
+
+QString EImageUtils::saveImage(const QImage &image,
+                               const QString &filename,
+                               const QString& format)
+{
+    bool saveOk = false;
+    QString eMsg;
+    if (!image.isNull()) {
+        qDebug() << Q_FUNC_INFO << QStringLiteral(" image is OK.");
+        saveOk = image.save(filename, format.toStdString().c_str());
+
+#ifdef Q_OS_WINDOWS
+        if (saveOk) {
+            QFile targetFile(filename);
+            if (targetFile.exists()) {
+                targetFile.setPermissions(QFile::ReadOther | QFile::WriteOther);
+            }
+        }
+#endif
+    } else {
+        eMsg.push_back("Save image self is NULL,");
+    }
+    if (!saveOk) {
+        eMsg.push_back("Save image is failed,");
+        eMsg.push_back(filename);
+    } else {
+        qDebug() << Q_FUNC_INFO << QStringLiteral(" Save image to ")
+                 << filename << QStringLiteral(" is true.");
+    }
+
+    if (!eMsg.isEmpty()) {
+        qWarning() << eMsg;
+    }
+
+    return saveOk ? filename : QStringLiteral("");
 }

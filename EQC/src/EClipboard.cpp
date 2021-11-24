@@ -120,7 +120,7 @@ QList<QUrl> EClipboard::urls() const
     return d->clipboard->mimeData()->urls();
 }
 
-QString EClipboard::saveClipboardImageToPath(const QString &path)
+QString EClipboard::saveClipboardImage(const QString &filename)
 {
     if (hasImage()) {
         QImage tmpImage;
@@ -139,17 +139,19 @@ QString EClipboard::saveClipboardImageToPath(const QString &path)
                 if (EFileUtils::exists(filename)) {
                     if (EIMAGEUTILS->mimeTypeIsImage(filename)) {
                         return filename;
-                    } else if (EFileUtils::mimeTypeIsVideo(filename)) {
-                        sendVideo(filename); // todo
-                        return QStringLiteral("");
                     }
                 }
             }
         }
         tmpImage = image();
         if (!tmpImage.isNull()) {
-            return saveImageToTempDir(tmpImage); // maybe
+            return saveImage(tmpImage, filename);
         }
     }
     return QStringLiteral("");
+}
+
+QString EClipboard::saveImage(const QImage &image, const QString &filename)
+{
+    return EIMAGEUTILS->saveImage(image, filename);
 }

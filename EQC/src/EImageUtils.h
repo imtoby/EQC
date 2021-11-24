@@ -38,8 +38,12 @@ public:
 
     Q_INVOKABLE static const char* defaultSaveImageFormat();
 
+    Q_INVOKABLE static QString saveImage(const QImage& image,
+                                         const QString& filename,
+                                         const QString& format = "png");
 
 signals:
+    void errorMessage(const QString& msg);
 
 private:
     EImageUtilsPrivate *d = nullptr;
