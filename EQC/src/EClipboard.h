@@ -3,6 +3,8 @@
 #define ECLIPBOARD_H_3863F9F2_F39E_4357_AEE7_BE54509B7FEE
 
 #include <QObject>
+#include <QUrl>
+#include <QImage>
 
 struct HClipboardPrivate;
 class EClipboard : public QObject
