@@ -16,6 +16,7 @@ SOURCES += \
         src/EFileUtils.cpp \
         src/EImageProvider.cpp \
         src/EImageUtils.cpp \
+        src/EReplyTimeout.cpp \
         src/EStringUtils.cpp
 
 RESOURCES += qml.qrc
@@ -38,5 +39,6 @@ HEADERS += \
     src/EFileUtils.h \
     src/EImageProvider.h \
     src/EImageUtils.h \
+    src/EReplyTimeout.h \
     src/ESingleton.h \
     src/EStringUtils.h
