@@ -12,6 +12,7 @@ public:
     EReplyTimeout(QNetworkReply *reply, const int timeout = 3000);
 
 signals:
+    void timeout();
 
 private slots:
     void onTimeout();

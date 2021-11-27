@@ -19,4 +19,10 @@ EReplyTimeout::EReplyTimeout(QNetworkReply *reply, const int timeout)
 
 void EReplyTimeout::onTimeout()
 {
+    QNetworkReply *reply = static_cast<QNetworkReply*>(parent());
+    if (reply->isRunning()) {
+        reply->abort();
+        reply->deleteLater();
+        emit timeout();
+    }
 }
