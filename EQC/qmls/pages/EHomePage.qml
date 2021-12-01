@@ -9,7 +9,7 @@ Item {
     SwipeView {
         id: e_home_view
         anchors.fill: parent
-        currentIndex: 1
+        currentIndex: 2
 
         Item {
             id: e_first_page
@@ -32,6 +32,35 @@ Item {
 
         Item {
             id: e_third_page
+
+            DropArea {
+                x: 75; y: 75
+                width: 50; height: 50
+
+                Rectangle {
+                    anchors.fill: parent
+                    color: "green"
+
+                    visible: parent.containsDrag
+                }
+            }
+
+            Rectangle {
+                x: 10; y: 10
+                width: 20; height: 20
+                color: "red"
+
+                Drag.active: dragArea.drag.active
+                Drag.hotSpot.x: 10
+                Drag.hotSpot.y: 10
+
+                MouseArea {
+                    id: dragArea
+                    anchors.fill: parent
+
+                    drag.target: parent
+                }
+            }
         }
     }
 
