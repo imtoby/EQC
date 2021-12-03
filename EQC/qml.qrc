@@ -21,5 +21,7 @@
         <file>qqr.js-master/qmldir</file>
         <file>qqr.js-master/qqr.js</file>
         <file>qqr.js-master/QRCode.qml</file>
+        <file>qmls/pages/EPageItem.qml</file>
+        <file>qmls/pages/EIconItem.qml</file>
     </qresource>
 </RCC>

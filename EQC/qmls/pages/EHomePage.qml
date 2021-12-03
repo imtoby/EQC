@@ -30,8 +30,12 @@ Item {
             }
         }
 
-        Item {
+        EPageItem {
             id: e_third_page
+        }
+
+        Item {
+            id: e_fourth_page
 
             DropArea {
                 x: 75; y: 75
