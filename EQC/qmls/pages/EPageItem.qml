@@ -6,12 +6,18 @@ Item {
         model: 20
         cellWidth: 120
         cellHeight: 120
-        delegate: Rectangle {
+        delegate: Item {
             width: 120
             height: 120
-            border.width: 1
-            border.color: "#DFDFDF"
-            radius: 24
+
+            Rectangle {
+                implicitWidth: 76
+                implicitHeight: 76
+                anchors.centerIn: parent
+                border.width: 1
+                border.color: "#DFDFDF"
+                radius: 16
+            }
         }
     }
 }
