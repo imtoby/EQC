@@ -39,6 +39,7 @@ HEADERS += \
     src/EFileUtils.h \
     src/EImageProvider.h \
     src/EImageUtils.h \
+    src/EMacros.h \
     src/EReplyTimeout.h \
     src/ESingleton.h \
     src/EStringUtils.h

@@ -1,9 +1,11 @@
 #include "EClipboard.h"
+#include "EMacros.h"
 
 #include <QApplication>
 #include <QClipboard>
 #include <QMimeData>
 #include <QUrl>
+#include <QDebug>
 
 #include "EFileUtils.h"
 #include "EImageUtils.h"
@@ -22,10 +24,7 @@ EClipboard::EClipboard(QObject *parent)
 
 EClipboard::~EClipboard()
 {
-    if (d) {
-        delete d;
-        d = nullptr;
-    }
+    freePointer(d);
 }
 
 void EClipboard::setHtml(const QString &html)

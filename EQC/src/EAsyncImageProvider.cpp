@@ -1,4 +1,5 @@
 #include "EAsyncImageProvider.h"
+#include "EMacros.h"
 
 #include <QDebug>
 #include <QImage>
@@ -18,10 +19,7 @@ EAsyncImageProvider::EAsyncImageProvider()
 
 EAsyncImageProvider::~EAsyncImageProvider()
 {
-    if (d) {
-        delete d;
-        d = nullptr;
-    }
+    freePointer(d);
 }
 
 QQuickImageResponse *EAsyncImageProvider::requestImageResponse(
@@ -49,10 +47,7 @@ EAsyncImageResponseRunnable::EAsyncImageResponseRunnable(const QString &id, cons
 
 EAsyncImageResponseRunnable::~EAsyncImageResponseRunnable()
 {
-    if (d) {
-        delete d;
-        d = nullptr;
-    }
+    freePointer(d);
 }
 
 void EAsyncImageResponseRunnable::run()
@@ -93,10 +88,7 @@ EAsyncImageResponse::EAsyncImageResponse(const QString &id,
 
 EAsyncImageResponse::~EAsyncImageResponse()
 {
-    if (d) {
-        delete d;
-        d = nullptr;
-    }
+    freePointer(d);
 }
 
 void EAsyncImageResponse::handleDone(QImage image)
